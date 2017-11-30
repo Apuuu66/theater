@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans>
+    <!--user-->
+    <bean id="UserService" class="com.ttms.serviceImpl.UserServiceImpl"/>
+    <bean id="UserDao" class="com.ttms.daoImpl.UserDaoImpl"/>
+
+    <!--emp-->
+    <bean id="EmpService" class="com.ttms.serviceImpl.EmpServiceImpl"/>
+    <bean id="EmpDao" class="com.ttms.daoImpl.EmpDaoImpl"/>
+
+</beans>
