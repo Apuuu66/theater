@@ -11,7 +11,7 @@
     <title>登录</title>
 </head>
 <body>
-<div><a href="${pageContext.request.contextPath}/register.jsp">注册</a></div>
+<div><a href="${pageContext.request.contextPath}/regist.jsp">注册</a></div>${user.emp_no}
 
 <form action="${pageContext.request.contextPath}/users?method=login" method="post">
     <div>

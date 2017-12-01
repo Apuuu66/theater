@@ -10,4 +10,10 @@ import com.ttms.vo.PageBean;
 public interface EmpService {
 
     PageBean<Employee> findByPage(int pageSize, Integer currPage) throws Exception;
+
+    Employee getEmpById(String emp_id) throws Exception;
+
+    void update(Employee emp) throws Exception;
+
+    void delEmp(String emp_id) throws Exception;
 }

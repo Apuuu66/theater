@@ -31,7 +31,9 @@
             <div style="margin-top: -2%">
 
                 <form class="form-inline" action="#" method="post">
-                    <h2  style="display: inline-block">所有员工 <small>All users</small></h2>
+                    <h2 style="display: inline-block">所有员工
+                        <small>All users</small>
+                    </h2>
                     <div class="form-group" style="margin-left:48% ">
                         <input type="text" class="form-control" placeholder="Search">
                     </div>
@@ -71,6 +73,50 @@
                     </c:forEach>
                     </tbody>
                 </table>
+
+                <%--分页--%>
+                <ul class="pagination" style="margin-left:25%">
+                    <%--<li><a href="#">&laquo;</a></li>--%>
+                    <%--<li class="active"><a href="#">1</a></li>--%>
+                    <%--<li class="disabled"><a href="#">2</a></li>--%>
+                    <%--<li><a href="#">3</a></li>--%>
+                    <%--<li><a href="#">4</a></li>--%>
+                    <%--<li><a href="#">5</a></li>--%>
+                    <%--<li><a href="#">&raquo;</a></li>--%>
+
+                    <%--//判断是否为第一页--%>
+                    <c:if test="${pb.currPage == 1}">
+                        <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
+                                aria-hidden="true">&laquo;</span></a></li>
+                    </c:if>
+                    <c:if test="${pb.currPage != 1}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage-1}"
+                               aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                    </c:if>
+                    <c:forEach begin="${pb.currPage-4>0?pb.currPage-4:1}" end="${pb.currPage+3>pb.totalPage?pb.totalPage:pb.currPage+3}" var="n">
+                        <c:if test="${pb.currPage == n}">
+                            <li class="active"><a href="javascript:void(0);">${n}</a></li>
+                        </c:if>
+                        <c:if test="${pb.currPage != n}">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${n}">${n}</a>
+                            </li>
+                        </c:if>
+                    </c:forEach>
+
+
+                    <%--//判断是否为最后一页--%>
+                    <c:if test="${pb.currPage == pb.totalPage}">
+                        <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
+                                aria-hidden="true">&raquo;</span></a></li>
+                    </c:if>
+                    <c:if test="${pb.currPage != pb.totalPage}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage+1}"
+                               aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+                    </c:if>
+                </ul>
             </div>
         </div>
     </div>
@@ -79,19 +125,14 @@
 <script>
     $(document).ready(function () {
         $("button[name=1]").click(function () {
-//            $(this).hide();
-           console.log(1);
-           console.log(this.id);
-           <%--location.href="${pageContext.request.contextPath}/emp?method="--%>
-           location.href="${pageContext.request.contextPath}/admin/update.jsp";
+            location.href = "${pageContext.request.contextPath}/emp?method=getEmp&emp_id=" + this.id + "&currPage=" +${param.currPage};
         });
     });
     $(document).ready(function () {
         $("button[name=2]").click(function () {
-//            $(this).hide();
-            console.log(2);
-            console.log(this.id);
-            <%--location.href="${pageContext.request.contextPath}/emp?method="--%>
+            if (confirm("确认删除吗？")) {
+                location.href = "${pageContext.request.contextPath}/emp?method=delEmp&emp_id=" + this.id;
+            }
         });
     });
 </script>

@@ -27,9 +27,77 @@
     <div class="row">
         <jsp:include page="navbar.jsp"></jsp:include>
         <div class="col-md-10">
+            <h2 style="display: inline-block">基本信息 </h2>
+            <form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/emp?method=update"
+                  method="post">
 
+                <div class="form-group">
+                    <label for="emp_id" class="col-sm-1 control-label">ID</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="emp_id" name="emp_id" readonly
+                               value="${emp.emp_id}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emp_no" class="col-sm-1 control-label">编号</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="emp_no" name="emp_no" value="${emp.emp_no}"
+                               readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emp_name" class="col-sm-1 control-label">姓名</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="emp_name" name="emp_name" value="${emp.emp_name}"
+                               required onblur="checkEmpName()">
+                    </div>
+                    <p id="emp_name_tip" class="control-label" style="color:red"></p>
+                </div>
+                <div class="form-group">
+                    <%--@declare id="emp_sex"--%><label for="emp_sex" class="col-sm-1 control-label">性别</label>
+                    <div class="col-sm-5">
+                        <%--<input type="text" class="form-control" id="emp_sex" value="${emp.emp_sex}">--%>
+                        男 &nbsp;<input type="radio" class="radio-inline" name="emp_sex" value="男">
+                        女<input type="radio" class="radio-inline" name="emp_sex" value="女">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emp_tel_num" class="col-sm-1 control-label">电话</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="emp_tel_num" name="emp_tel_num" required
+                               value="${emp.emp_tel_num}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emp_addr" class="col-sm-1 control-label">地址</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="emp_addr" name="emp_addr" required
+                               value="${emp.emp_addr}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emp_email" class="col-sm-1 control-label">邮箱</label>
+                    <div class="col-sm-5">
+                        <input type="email" class="form-control" id="emp_email" name="emp_email" required
+                               value="${emp.emp_email}">
+                    </div>
+                </div>
+                <button style="margin-left: 20%" type="submit" class="btn btn-warning btn-sm">确认修改</button>
+                <button type="button" class="btn btn-primary btn-sm">返回</button>
+            </form>
         </div>
     </div>
 </div>
 </body>
+<script>
+    $(document).ready(function () {
+        var sex = "${emp.emp_sex}";
+        if (sex == '男') {
+            $("input:radio:first").attr("checked", true);
+        }
+        else {
+            $("input:radio:last").attr("checked", true);
+        }
+    });
+</script>
 </html>

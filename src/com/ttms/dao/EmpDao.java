@@ -14,4 +14,9 @@ public interface EmpDao {
 
     int getTotalCount() throws SQLException;
 
+    Employee getEmpById(String emp_id) throws SQLException;
+
+    void update(Employee emp) throws SQLException;
+
+    void delEmp(String emp_id) throws SQLException;
 }

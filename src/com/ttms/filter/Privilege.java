@@ -29,6 +29,7 @@ public class Privilege implements Filter {
         } else {
             if (path.startsWith("/user/")) { // user 身份
                 if (user.getRole() == 0 || user.getRole() == 1) {
+                    System.out.println("登录用户界面");
                     chain.doFilter(request, response);// 权限满足
                     return;
                 } else {
@@ -38,6 +39,7 @@ public class Privilege implements Filter {
             }
             if (path.startsWith("/admin/")) { // 管理员身份
                 if (user.getRole() == 1) {
+                    System.out.println("登录管理员界面");
                     chain.doFilter(request, response);// 权限满足
                     return;
                 } else {
