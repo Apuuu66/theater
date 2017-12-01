@@ -16,4 +16,6 @@ public interface EmpService {
     void update(Employee emp) throws Exception;
 
     void delEmp(String emp_id) throws Exception;
+
+    PageBean<Employee> getEmps(String condition, int pageSize, Integer currPage) throws Exception;
 }

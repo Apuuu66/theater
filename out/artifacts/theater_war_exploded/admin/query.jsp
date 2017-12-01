@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: Fionar
-  Date: 2017/11/29
-  Time: 13:46
+  Date: 2017/12/1
+  Time: 20:58
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -31,8 +31,8 @@
             <div style="margin-top: -2%">
 
                 <form class="form-inline" action="#" method="post">
-                    <h2 style="display: inline-block">所有员工
-                        <small>All users</small>
+                    <h2 style="display: inline-block">查询结果
+                        <small>All results</small>
                     </h2>
                     <div class="form-group" style="margin-left:48% ">
                         <input type="text" class="form-control" placeholder="Search" id="condition">
@@ -77,42 +77,44 @@
                 </table>
 
                 <%--分页--%>
-                <c:if test="${not empty pb.list}">
-                    <ul class="pagination" style="margin-left:25%">
-                            <%--//判断是否为第一页--%>
-                        <c:if test="${pb.currPage == 1}">
-                            <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
-                                    aria-hidden="true">&laquo;</span></a></li>
-                        </c:if>
-                        <c:if test="${pb.currPage != 1}">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage-1}"
-                                   aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                        </c:if>
-                        <c:forEach begin="${pb.currPage-2>0?pb.currPage-2:1}"
-                                   end="${pb.currPage+2>pb.totalPage?pb.totalPage:pb.currPage+2}" var="n">
-                            <c:if test="${pb.currPage == n}">
-                                <li class="active"><a href="javascript:void(0);">${n}</a></li>
+                <c:if test="${pb.totalCount>6}">
+                    <c:if test="${not empty pb.list}">
+                        <ul class="pagination" style="margin-left:25%">
+                                <%--//判断是否为第一页--%>
+                            <c:if test="${pb.currPage == 1}">
+                                <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
+                                        aria-hidden="true">&laquo;</span></a></li>
                             </c:if>
-                            <c:if test="${pb.currPage != n}">
+                            <c:if test="${pb.currPage != 1}">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${n}">${n}</a>
-                                </li>
+                                    <a href="${pageContext.request.contextPath}/emp?method=getEmps&condition=${param.condition}&currPage=${pb.currPage-1}"
+                                       aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                             </c:if>
-                        </c:forEach>
+                            <c:forEach begin="${pb.currPage-2>0?pb.currPage-2:1}"
+                                       end="${pb.currPage+2>pb.totalPage?pb.totalPage:pb.currPage+2}" var="n">
+                                <c:if test="${pb.currPage == n}">
+                                    <li class="active"><a href="javascript:void(0);">${n}</a></li>
+                                </c:if>
+                                <c:if test="${pb.currPage != n}">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/emp?method=getEmps&condition=${param.condition}&currPage=${n}">${n}</a>
+                                    </li>
+                                </c:if>
+                            </c:forEach>
 
 
-                            <%--//判断是否为最后一页--%>
-                        <c:if test="${pb.currPage == pb.totalPage}">
-                            <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
-                                    aria-hidden="true">&raquo;</span></a></li>
-                        </c:if>
-                        <c:if test="${pb.currPage != pb.totalPage}">
-                            <li>
-                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage+1}"
-                                   aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
-                        </c:if>
-                    </ul>
+                                <%--//判断是否为最后一页--%>
+                            <c:if test="${pb.currPage == pb.totalPage}">
+                                <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
+                                        aria-hidden="true">&raquo;</span></a></li>
+                            </c:if>
+                            <c:if test="${pb.currPage != pb.totalPage}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/emp?method=getEmps&condition=${param.condition}&currPage=${pb.currPage+1}"
+                                       aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+                            </c:if>
+                        </ul>
+                    </c:if>
                 </c:if>
             </div>
         </div>
@@ -134,6 +136,7 @@
     });
     $(document).ready(function () {
         $("button[name=query]").click(function () {
+            console.log($("#condition").val());
             location.href = "${pageContext.request.contextPath}/emp?method=getEmps&condition=" + $("#condition").val() + "&currPage=1";
         });
     });

@@ -4,12 +4,11 @@ package com.ttms.filter;
 import com.ttms.vo.User;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "Privilege", urlPatterns = {"/admin/*","/user/*"})
+//@WebFilter(filterName = "Privilege", urlPatterns = {"/admin/*","/user/*","/emp"})
 public class Privilege implements Filter {
     public void destroy() {
     }
@@ -37,7 +36,7 @@ public class Privilege implements Filter {
 
                 }
             }
-            if (path.startsWith("/admin/")) { // 管理员身份
+            if (path.startsWith("/admin/") || path.startsWith("/emp")) { // 管理员身份
                 if (user.getRole() == 1) {
                     System.out.println("登录管理员界面");
                     chain.doFilter(request, response);// 权限满足

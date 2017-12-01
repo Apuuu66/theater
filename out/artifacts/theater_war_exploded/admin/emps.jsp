@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>员工管理</title>
 
     <%--<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">--%>
     <%--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>--%>
@@ -35,10 +35,10 @@
                         <small>All users</small>
                     </h2>
                     <div class="form-group" style="margin-left:48% ">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search" id="condition">
                     </div>
-                    <button type="submit" class="btn btn-primary">查询</button>
-                    <button class="btn btn-warning">添加</button>
+                    <button type="button" name="query" class="btn btn-primary">查询</button>
+                    <button type="button" name="add" class="btn btn-warning">添加</button>
                 </form>
             </div>
             <div class="table-responsive">
@@ -56,67 +56,64 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${pb.list}" var="emp">
-                        <tr>
-                            <td>${emp.emp_id}</td>
-                            <td>${emp.emp_no}</td>
-                            <td>${emp.emp_name}</td>
-                            <td>${emp.emp_sex}</td>
-                            <td>${emp.emp_tel_num}</td>
-                            <td>${emp.emp_addr}</td>
-                            <td>${emp.emp_email}</td>
-                            <td>
-                                <button class="btn btn-info btn-sm" name="1" id="${emp.emp_id}">修改</button>
-                                <button class="btn btn-danger btn-sm" name="2" id="${emp.emp_id}">删除</button>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <c:if test="${not empty pb.list}">
+                        <c:forEach items="${pb.list}" var="emp">
+                            <tr>
+                                <td>${emp.emp_id}</td>
+                                <td>${emp.emp_no}</td>
+                                <td>${emp.emp_name}</td>
+                                <td>${emp.emp_sex}</td>
+                                <td>${emp.emp_tel_num}</td>
+                                <td>${emp.emp_addr}</td>
+                                <td>${emp.emp_email}</td>
+                                <td>
+                                    <button class="btn btn-info btn-sm" name="1" id="${emp.emp_id}">修改</button>
+                                    <button class="btn btn-danger btn-sm" name="2" id="${emp.emp_id}">删除</button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                     </tbody>
                 </table>
 
                 <%--分页--%>
-                <ul class="pagination" style="margin-left:25%">
-                    <%--<li><a href="#">&laquo;</a></li>--%>
-                    <%--<li class="active"><a href="#">1</a></li>--%>
-                    <%--<li class="disabled"><a href="#">2</a></li>--%>
-                    <%--<li><a href="#">3</a></li>--%>
-                    <%--<li><a href="#">4</a></li>--%>
-                    <%--<li><a href="#">5</a></li>--%>
-                    <%--<li><a href="#">&raquo;</a></li>--%>
-
-                    <%--//判断是否为第一页--%>
-                    <c:if test="${pb.currPage == 1}">
-                        <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
-                                aria-hidden="true">&laquo;</span></a></li>
-                    </c:if>
-                    <c:if test="${pb.currPage != 1}">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage-1}"
-                               aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-                    </c:if>
-                    <c:forEach begin="${pb.currPage-4>0?pb.currPage-4:1}" end="${pb.currPage+3>pb.totalPage?pb.totalPage:pb.currPage+3}" var="n">
-                        <c:if test="${pb.currPage == n}">
-                            <li class="active"><a href="javascript:void(0);">${n}</a></li>
+                <c:if test="${not empty pb.list}">
+                    <ul class="pagination" style="margin-left:25%">
+                            <%--//判断是否为第一页--%>
+                        <c:if test="${pb.currPage == 1}">
+                            <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
+                                    aria-hidden="true">&laquo;</span></a></li>
                         </c:if>
-                        <c:if test="${pb.currPage != n}">
+                        <c:if test="${pb.currPage != 1}">
                             <li>
-                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${n}">${n}</a>
-                            </li>
+                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage-1}"
+                                   aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                         </c:if>
-                    </c:forEach>
+                        <c:forEach begin="${pb.currPage-2>0?pb.currPage-2:1}"
+                                   end="${pb.currPage+2>pb.totalPage?pb.totalPage:pb.currPage+2}" var="n">
+                            <c:if test="${pb.currPage == n}">
+                                <li class="active"><a href="javascript:void(0);">${n}</a></li>
+                            </c:if>
+                            <c:if test="${pb.currPage != n}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${n}">${n}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
 
 
-                    <%--//判断是否为最后一页--%>
-                    <c:if test="${pb.currPage == pb.totalPage}">
-                        <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
-                                aria-hidden="true">&raquo;</span></a></li>
-                    </c:if>
-                    <c:if test="${pb.currPage != pb.totalPage}">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage+1}"
-                               aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
-                    </c:if>
-                </ul>
+                            <%--//判断是否为最后一页--%>
+                        <c:if test="${pb.currPage == pb.totalPage}">
+                            <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span
+                                    aria-hidden="true">&raquo;</span></a></li>
+                        </c:if>
+                        <c:if test="${pb.currPage != pb.totalPage}">
+                            <li>
+                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage+1}"
+                                   aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+                        </c:if>
+                    </ul>
+                </c:if>
             </div>
         </div>
     </div>
@@ -125,14 +122,24 @@
 <script>
     $(document).ready(function () {
         $("button[name=1]").click(function () {
-            location.href = "${pageContext.request.contextPath}/emp?method=getEmp&emp_id=" + this.id + "&currPage=" +${param.currPage};
+            location.href = "${pageContext.request.contextPath}/emp?method=getEmp&emp_id=" + this.id + "&currPage=" + "${param.currPage}";
         });
     });
     $(document).ready(function () {
         $("button[name=2]").click(function () {
             if (confirm("确认删除吗？")) {
-                location.href = "${pageContext.request.contextPath}/emp?method=delEmp&emp_id=" + this.id;
+                location.href = "${pageContext.request.contextPath}/emp?method=delEmp&emp_id=" + this.id + "&currPage=" + "${param.currPage}";
             }
+        });
+    });
+    $(document).ready(function () {
+        $("button[name=query]").click(function () {
+            location.href = "${pageContext.request.contextPath}/emp?method=getEmps&condition=" + $("#condition").val() + "&currPage=1";
+        });
+    });
+    $(document).ready(function () {
+        $("button[name=add]").click(function () {
+            location.href ="${pageContext.request.contextPath}/admin/add.jsp";
         });
     });
 </script>

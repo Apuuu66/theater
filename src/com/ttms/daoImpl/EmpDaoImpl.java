@@ -20,14 +20,14 @@ public class EmpDaoImpl implements EmpDao {
     public List<Employee> findByPage(Integer currPage, int pageSize) throws SQLException {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "select * from employee limit ?,?";
-        return qr.query(sql,new BeanListHandler<>(Employee.class),(currPage-1)*pageSize,pageSize);
+        return qr.query(sql, new BeanListHandler<>(Employee.class), (currPage - 1) * pageSize, pageSize);
     }
 
     @Override
     public int getTotalCount() throws SQLException {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "select count(*) from employee";
-        int totalCount = ((Long)qr.query(sql, new ScalarHandler())).intValue();
+        int totalCount = ((Long) qr.query(sql, new ScalarHandler())).intValue();
         return totalCount;
     }
 
@@ -35,14 +35,14 @@ public class EmpDaoImpl implements EmpDao {
     public Employee getEmpById(String emp_id) throws SQLException {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "select * from employee where emp_id = ?";
-        return qr.query(sql,new BeanHandler<Employee>(Employee.class),emp_id);
+        return qr.query(sql, new BeanHandler<Employee>(Employee.class), emp_id);
     }
 
     @Override
     public void update(Employee e) throws SQLException {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "update employee set emp_name = ?,emp_sex = ?,emp_tel_num = ?,emp_addr = ?,emp_email = ? where emp_id = ?";
-        qr.update(sql,e.getEmp_name(),e.getEmp_sex(),e.getEmp_tel_num(),e.getEmp_addr(),e.getEmp_email(),e.getEmp_id());
+        qr.update(sql, e.getEmp_name(), e.getEmp_sex(), e.getEmp_tel_num(), e.getEmp_addr(), e.getEmp_email(), e.getEmp_id());
     }
 
     @Override
@@ -50,5 +50,20 @@ public class EmpDaoImpl implements EmpDao {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "delete from employee where emp_id = ?";
         qr.update(sql, emp_id);
+    }
+
+    @Override
+    public int getTotalCount(String condition) throws SQLException {
+        QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "select count(*) from employee where emp_no like ?";
+        int totalCount = ((Long) qr.query(sql, new ScalarHandler(),"%"+condition+"%")).intValue();
+        return totalCount;
+    }
+
+    @Override
+    public List<Employee> getEmps(String condition, int pageSize, Integer currPage) throws SQLException {
+        QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "select * from employee where emp_no like ? limit ?,?";
+        return qr.query(sql, new BeanListHandler<>(Employee.class), "%"+condition+"%",(currPage - 1) * pageSize, pageSize);
     }
 }

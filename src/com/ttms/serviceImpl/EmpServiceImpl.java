@@ -40,4 +40,21 @@ public class EmpServiceImpl implements EmpService {
         EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
         empDao.delEmp(emp_id);
     }
+
+    @Override
+    public PageBean<Employee> getEmps(String condition, int pageSize, Integer currPage) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        List<Employee> list = null;
+        int totalCount = 0;
+        if (condition == null || condition.trim().length() <= 0) {
+            list = empDao.findByPage(currPage, pageSize);
+            totalCount=empDao.getTotalCount();
+            System.out.println("调用无条件");
+            return new PageBean<>(pageSize, currPage, totalCount, list);
+        } else {
+            list = empDao.getEmps(condition, pageSize, currPage);
+            totalCount = empDao.getTotalCount(condition);
+            return new PageBean<>(pageSize, currPage, totalCount, list);
+        }
+    }
 }

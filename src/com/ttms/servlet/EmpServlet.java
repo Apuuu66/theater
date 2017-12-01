@@ -4,16 +4,11 @@ import com.ttms.service.EmpService;
 import com.ttms.utils.BeanFactory;
 import com.ttms.vo.Employee;
 import com.ttms.vo.PageBean;
-import com.ttms.vo.User;
 import org.apache.commons.beanutils.BeanUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
@@ -24,6 +19,9 @@ import java.util.Map;
 public class EmpServlet extends BaseServlet {
     public String byPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Integer currPage = Integer.valueOf(request.getParameter("currPage"));
+        if (currPage == null) {
+            currPage = 1;
+        }
         int pageSize = 6;
         EmpService s = (EmpService) BeanFactory.getBean("EmpService");
         PageBean<Employee> pb = s.findByPage(pageSize, currPage);
@@ -40,15 +38,34 @@ public class EmpServlet extends BaseServlet {
     }
 
 
+    public String getEmps(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String condition = request.getParameter("condition");
+        System.out.println(condition);
+        Integer currPage = Integer.valueOf(request.getParameter("currPage"));
+        if (currPage == null) {
+            currPage = 1;
+        }
+        int pageSize = 6;
+        EmpService s = (EmpService) BeanFactory.getBean("EmpService");
+        PageBean<Employee> pb = s.getEmps(condition,pageSize, currPage);
+        request.setAttribute("pb", pb);
+        return "/admin/query.jsp";
+
+
+    }
+
     public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Integer page = Integer.valueOf(request.getParameter("page"));
+        if (page == null) {
+            page = 1;
+        }
         Employee emp = new Employee();
         Map<String, String[]> map = request.getParameterMap();
         BeanUtils.populate(emp, map);
         EmpService s = (EmpService) BeanFactory.getBean("EmpService");
         System.out.println(emp.getEmp_sex());
         s.update(emp);
-//        response.sendRedirect(request.getContextPath()+"/admin/emps.jsp");
-        response.sendRedirect(request.getContextPath() + "/emp?method=byPage&currPage=2");
+        response.sendRedirect(request.getContextPath() + "/emp?method=byPage&currPage=" + page);
         return null;
     }
 
@@ -57,11 +74,11 @@ public class EmpServlet extends BaseServlet {
         String emp_id = request.getParameter("emp_id");
         Integer currPage = Integer.valueOf(request.getParameter("currPage"));
         if (currPage == null) {
-            currPage=1;
+            currPage = 1;
         }
         EmpService s = (EmpService) BeanFactory.getBean("EmpService");
         s.delEmp(emp_id);
-        response.sendRedirect(request.getContextPath() + "/emp?method=byPage&currPage="+currPage);
+        response.sendRedirect(request.getContextPath() + "/emp?method=byPage&currPage=" + currPage);
         return null;
     }
 }

@@ -9,7 +9,6 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.junit.Test;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 
 /**
@@ -37,10 +36,13 @@ public class TestDemo {
         System.out.println(user.getRole());
         System.out.println(user.getEmp_pass());
     }
-@Test
+
+    @Test
     public void eee() {
         String str = "/user?";
         System.out.println(str.startsWith("/user/"));
+        str = "1 1";
+        System.out.println(str.trim().length());
     }
 
 
@@ -48,8 +50,9 @@ public class TestDemo {
     public void getTotalCount() throws SQLException {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "select count(*) from employee";
-        int totalCount = ((Long)qr.query(sql, new ScalarHandler())).intValue();
+        int totalCount = ((Long) qr.query(sql, new ScalarHandler())).intValue();
         System.out.println(totalCount);
     }
+
 
 }

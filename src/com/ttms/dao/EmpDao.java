@@ -19,4 +19,8 @@ public interface EmpDao {
     void update(Employee emp) throws SQLException;
 
     void delEmp(String emp_id) throws SQLException;
+
+    int getTotalCount(String condition) throws SQLException;
+
+    List<Employee> getEmps(String condition, int pageSize, Integer currPage) throws SQLException;
 }

@@ -28,9 +28,8 @@
         <jsp:include page="navbar.jsp"></jsp:include>
         <div class="col-md-10">
             <h2 style="display: inline-block">基本信息 </h2>
-            <form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/emp?method=update"
-                  method="post">
-
+            <form class="form-horizontal" role="form"
+                  action="${pageContext.request.contextPath}/emp?method=update&page=${param.currPage}" method="post">
                 <div class="form-group">
                     <label for="emp_id" class="col-sm-1 control-label">ID</label>
                     <div class="col-sm-5">
@@ -83,7 +82,7 @@
                     </div>
                 </div>
                 <button style="margin-left: 20%" type="submit" class="btn btn-warning btn-sm">确认修改</button>
-                <button type="button" class="btn btn-primary btn-sm">返回</button>
+                <button type="button" class="btn btn-primary btn-sm" name="back">返回</button>
             </form>
         </div>
     </div>
@@ -98,6 +97,12 @@
         else {
             $("input:radio:last").attr("checked", true);
         }
+    });
+
+    $(document).ready(function () {
+        $("button[name=back]").click(function () {
+            location.href = "${pageContext.request.contextPath}/emp?method=byPage&currPage=${param.currPage}";
+        });
     });
 </script>
 </html>
