@@ -34,7 +34,7 @@
                     <h2 style="display: inline-block">所有员工
                         <small>All users</small>
                     </h2>
-                    <div class="form-group" style="margin-left:48% ">
+                    <div class="form-group" style="margin-left:50% ">
                         <input type="text" class="form-control" placeholder="Search" id="condition">
                     </div>
                     <button type="button" name="query" class="btn btn-primary">查询</button>
@@ -52,7 +52,7 @@
                         <th>电话</th>
                         <th>地址</th>
                         <th>邮箱</th>
-                        <th>操作</th>
+                        <th style="text-align: center">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,8 +66,8 @@
                                 <td>${emp.emp_tel_num}</td>
                                 <td>${emp.emp_addr}</td>
                                 <td>${emp.emp_email}</td>
-                                <td>
-                                    <button class="btn btn-info btn-sm" name="1" id="${emp.emp_id}">修改</button>
+                                <td style="text-align: center">
+                                    <button class="btn btn-info btn-sm " name="1" id="${emp.emp_id}">修改</button>
                                     <button class="btn btn-danger btn-sm" name="2" id="${emp.emp_id}">删除</button>
                                 </td>
                             </tr>
@@ -77,6 +77,7 @@
                 </table>
 
                 <%--分页--%>
+
                 <c:if test="${not empty pb.list}">
                     <ul class="pagination" style="margin-left:25%">
                             <%--//判断是否为第一页--%>

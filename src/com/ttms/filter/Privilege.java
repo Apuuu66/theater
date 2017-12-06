@@ -4,11 +4,12 @@ package com.ttms.filter;
 import com.ttms.vo.User;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebFilter(filterName = "Privilege", urlPatterns = {"/admin/*","/user/*","/emp"})
+@WebFilter(filterName = "Privilege", urlPatterns = {"/admin/*","/user/*","/emp"})
 public class Privilege implements Filter {
     public void destroy() {
     }

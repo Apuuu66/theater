@@ -54,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <%--@declare id="emp_sex"--%><label for="emp_sex" class="col-sm-1 control-label">性别</label>
-                    <div class="col-sm-5">
+                    <div class="col-sm-5" style="margin-top:7PX">
                         <%--<input type="text" class="form-control" id="emp_sex" value="${emp.emp_sex}">--%>
                         男 &nbsp;<input type="radio" class="radio-inline" name="emp_sex" value="男">
                         女<input type="radio" class="radio-inline" name="emp_sex" value="女">

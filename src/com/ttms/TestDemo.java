@@ -1,8 +1,11 @@
 package com.ttms;
 
 import com.alibaba.druid.pool.DruidPooledConnection;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ttms.utils.DataSourceUtils;
 import com.ttms.utils.DruidUtils;
+import com.ttms.vo.Employee;
 import com.ttms.vo.User;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -10,6 +13,8 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -54,5 +59,33 @@ public class TestDemo {
         System.out.println(totalCount);
     }
 
+    @Test
+    public void tttt() {
+        Employee emp = new Employee();
+        emp.setEmp_no("1");
+        emp.setEmp_id(2);
+        emp.setEmp_name("张三");
+        Gson gson = new Gson();
+        String s = gson.toJson(emp, Employee.class);
+        System.out.println(s);
+
+        Person person1 = new Person();
+        person1.setId(1);
+        person1.setName("李四");
+        person1.setpEmailAdd("家里");
+        System.out.println(gson.toJson(person1));
+
+        Person person2 = new Person();
+        person2.setId(2);
+        person2.setName("王立");
+        person2.setpEmailAdd("家佳佳");
+        System.out.println(gson.toJson(person2, Person.class));
+        List<Person> list = new ArrayList<>();
+        list.add(person1);
+        list.add(person2);
+        String s1 = gson.toJson(list, new TypeToken<List<Person>>() {}.getType());
+        System.out.println(s1);
+
+    }
 
 }

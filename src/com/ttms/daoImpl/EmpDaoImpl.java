@@ -56,7 +56,7 @@ public class EmpDaoImpl implements EmpDao {
     public int getTotalCount(String condition) throws SQLException {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "select count(*) from employee where emp_no like ?";
-        int totalCount = ((Long) qr.query(sql, new ScalarHandler(),"%"+condition+"%")).intValue();
+        int totalCount = ((Long) qr.query(sql, new ScalarHandler(), "%" + condition + "%")).intValue();
         return totalCount;
     }
 
@@ -64,6 +64,25 @@ public class EmpDaoImpl implements EmpDao {
     public List<Employee> getEmps(String condition, int pageSize, Integer currPage) throws SQLException {
         QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
         String sql = "select * from employee where emp_no like ? limit ?,?";
-        return qr.query(sql, new BeanListHandler<>(Employee.class), "%"+condition+"%",(currPage - 1) * pageSize, pageSize);
+        return qr.query(sql, new BeanListHandler<>(Employee.class), "%" + condition + "%", (currPage - 1) * pageSize, pageSize);
+    }
+
+    @Override
+    public void addEmp(Employee e) throws SQLException {
+        QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "INSERT INTO `employee` (`emp_no`, `emp_name`,emp_sex ,`emp_tel_num`, `emp_addr`, `emp_email`) VALUES (?,?,?,?,?,?)";
+        qr.update(sql,e.getEmp_no(),e.getEmp_name(),e.getEmp_sex(),e.getEmp_tel_num(),e.getEmp_addr(),e.getEmp_email());
+    }
+
+    @Override
+    public boolean checkNo(String emp_no) throws SQLException {
+        QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "select * from employee where emp_no = ? limit 1";
+        Employee user = qr.query(sql, new BeanHandler<>(Employee.class), emp_no);
+        if (user != null) {
+            System.out.println(user.getEmp_no());
+            return true;
+        }
+        return false;
     }
 }

@@ -48,7 +48,7 @@ public class EmpServiceImpl implements EmpService {
         int totalCount = 0;
         if (condition == null || condition.trim().length() <= 0) {
             list = empDao.findByPage(currPage, pageSize);
-            totalCount=empDao.getTotalCount();
+            totalCount = empDao.getTotalCount();
             System.out.println("调用无条件");
             return new PageBean<>(pageSize, currPage, totalCount, list);
         } else {
@@ -56,5 +56,17 @@ public class EmpServiceImpl implements EmpService {
             totalCount = empDao.getTotalCount(condition);
             return new PageBean<>(pageSize, currPage, totalCount, list);
         }
+    }
+
+    @Override
+    public void addEmp(Employee emp) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        empDao.addEmp(emp);
+    }
+
+    @Override
+    public boolean checkNo(String emp_no) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        return empDao.checkNo(emp_no);
     }
 }

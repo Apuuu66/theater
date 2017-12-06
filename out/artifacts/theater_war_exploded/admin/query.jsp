@@ -34,7 +34,7 @@
                     <h2 style="display: inline-block">查询结果
                         <small>All results</small>
                     </h2>
-                    <div class="form-group" style="margin-left:48% ">
+                    <div class="form-group" style="margin-left:49%">
                         <input type="text" class="form-control" placeholder="Search" id="condition">
                     </div>
                     <button type="button" name="query" class="btn btn-primary">查询</button>
@@ -42,7 +42,11 @@
                 </form>
             </div>
             <div class="table-responsive">
+                <c:if test="${empty pb.list}">
+                    <div style="margin-left: 35%"><label><h1 style="color: #761c19">无查询结果</h1></label></div>
+                </c:if>
                 <table class="table table-bordered table-hover">
+                    <c:if test="${not empty pb.list}">
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -52,26 +56,26 @@
                         <th>电话</th>
                         <th>地址</th>
                         <th>邮箱</th>
-                        <th>操作</th>
+                        <th style="text-align: center">操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:if test="${not empty pb.list}">
-                        <c:forEach items="${pb.list}" var="emp">
-                            <tr>
-                                <td>${emp.emp_id}</td>
-                                <td>${emp.emp_no}</td>
-                                <td>${emp.emp_name}</td>
-                                <td>${emp.emp_sex}</td>
-                                <td>${emp.emp_tel_num}</td>
-                                <td>${emp.emp_addr}</td>
-                                <td>${emp.emp_email}</td>
-                                <td>
-                                    <button class="btn btn-info btn-sm" name="1" id="${emp.emp_id}">修改</button>
-                                    <button class="btn btn-danger btn-sm" name="2" id="${emp.emp_id}">删除</button>
-                                </td>
-                            </tr>
-                        </c:forEach>
+
+                    <c:forEach items="${pb.list}" var="emp">
+                        <tr>
+                            <td>${emp.emp_id}</td>
+                            <td>${emp.emp_no}</td>
+                            <td>${emp.emp_name}</td>
+                            <td>${emp.emp_sex}</td>
+                            <td>${emp.emp_tel_num}</td>
+                            <td>${emp.emp_addr}</td>
+                            <td>${emp.emp_email}</td>
+                            <td style="text-align: center">
+                                <button class="btn btn-info btn-sm" name="1" id="${emp.emp_id}">修改</button>
+                                <button class="btn btn-danger btn-sm" name="2" id="${emp.emp_id}">删除</button>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </c:if>
                     </tbody>
                 </table>
@@ -142,7 +146,7 @@
     });
     $(document).ready(function () {
         $("button[name=add]").click(function () {
-            location.href ="${pageContext.request.contextPath}/admin/add.jsp";
+            location.href = "${pageContext.request.contextPath}/admin/add.jsp";
         });
     });
 </script>

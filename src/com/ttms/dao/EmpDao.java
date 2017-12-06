@@ -23,4 +23,8 @@ public interface EmpDao {
     int getTotalCount(String condition) throws SQLException;
 
     List<Employee> getEmps(String condition, int pageSize, Integer currPage) throws SQLException;
+
+    void addEmp(Employee emp) throws SQLException;
+
+    boolean checkNo(String emp_no) throws SQLException;
 }

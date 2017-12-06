@@ -18,4 +18,8 @@ public interface EmpService {
     void delEmp(String emp_id) throws Exception;
 
     PageBean<Employee> getEmps(String condition, int pageSize, Integer currPage) throws Exception;
+
+    void addEmp(Employee emp) throws Exception;
+
+    boolean checkNo(String emp_no) throws Exception;
 }

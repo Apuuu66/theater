@@ -81,4 +81,26 @@ public class EmpServlet extends BaseServlet {
         response.sendRedirect(request.getContextPath() + "/emp?method=byPage&currPage=" + currPage);
         return null;
     }
+
+    public String addEmp(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println(1);
+        Employee emp = new Employee();
+        BeanUtils.populate(emp,request.getParameterMap());
+        EmpService s = (EmpService) BeanFactory.getBean("EmpService");
+        s.addEmp(emp);
+        response.sendRedirect(request.getContextPath()+"/admin/emps.jsp");
+        return null;
+    }
+
+    public String checkNo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String emp_no = request.getParameter("emp_no");
+        System.out.println(emp_no);
+        EmpService s = (EmpService) BeanFactory.getBean("EmpService");
+        boolean flag = s.checkNo(emp_no);
+        System.out.println(flag);
+
+        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().print(String.valueOf(flag));
+        return null;
+    }
 }
