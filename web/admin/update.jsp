@@ -29,7 +29,7 @@
         <div class="col-md-10">
             <h2 style="display: inline-block">基本信息 </h2>
             <form class="form-horizontal" role="form"
-                  action="${pageContext.request.contextPath}/emp?method=update&page=${param.currPage}" method="post">
+                  action="${pageContext.request.contextPath}/admin?method=update&page=${param.currPage}" method="post">
                 <div class="form-group">
                     <label for="emp_id" class="col-sm-1 control-label">ID</label>
                     <div class="col-sm-5">
@@ -101,8 +101,11 @@
 
     $(document).ready(function () {
         $("button[name=back]").click(function () {
-            location.href = "${pageContext.request.contextPath}/emp?method=byPage&currPage=${param.currPage}";
+            location.href = "${pageContext.request.contextPath}/admin?method=byPage&currPage=${param.currPage}";
         });
+    });
+    $(document).ready(function () {
+        $("#item1").attr("class","list-group-item active");
     });
 </script>
 </html>

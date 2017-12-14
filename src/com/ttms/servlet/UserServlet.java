@@ -14,21 +14,22 @@ import java.io.IOException;
  * Created by IntelliJ IDEA.
  * User: Fionar
  */
-@WebServlet(name = "UserServlet", urlPatterns = "/users")
+@WebServlet(name = "UserServlet", urlPatterns = "/user")
 public class UserServlet extends BaseServlet {
     public String login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.getSession().invalidate();
+        request.getSession().removeAttribute("user");
         String emp_no = request.getParameter("emp_no");
         String emp_pass = request.getParameter("emp_pass");
         System.out.println(emp_no);
         UserService us = (UserService) BeanFactory.getBean("UserService");
         User user = us.getUserByNameAndPwd(emp_no, emp_pass);
-        System.out.println(user.getEmp_pass());
+
         if (user == null) {
             request.setAttribute("msg", "用户名密码不匹配");
             return "/login.jsp";
         }
-        request.getSession().setAttribute("user", user);
+        System.out.println(user.getEmp_pass());
+        request.getSession().setAttribute("userlogin", user);
         System.out.println(request.getContextPath());
         String path = "/";
         if (user.getRole() == 1) {
@@ -41,6 +42,13 @@ public class UserServlet extends BaseServlet {
     }
 
     public String regist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        return null;
+    }
+
+
+    public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute("user");
+        response.sendRedirect(request.getContextPath());
         return null;
     }
 }

@@ -87,7 +87,7 @@
                         </c:if>
                         <c:if test="${pb.currPage != 1}">
                             <li>
-                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage-1}"
+                                <a href="${pageContext.request.contextPath}/admin?method=byPage&currPage=${pb.currPage-1}"
                                    aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                         </c:if>
                         <c:forEach begin="${pb.currPage-2>0?pb.currPage-2:1}"
@@ -97,7 +97,7 @@
                             </c:if>
                             <c:if test="${pb.currPage != n}">
                                 <li>
-                                    <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${n}">${n}</a>
+                                    <a href="${pageContext.request.contextPath}/admin?method=byPage&currPage=${n}">${n}</a>
                                 </li>
                             </c:if>
                         </c:forEach>
@@ -110,7 +110,7 @@
                         </c:if>
                         <c:if test="${pb.currPage != pb.totalPage}">
                             <li>
-                                <a href="${pageContext.request.contextPath}/emp?method=byPage&currPage=${pb.currPage+1}"
+                                <a href="${pageContext.request.contextPath}/admin?method=byPage&currPage=${pb.currPage+1}"
                                    aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
                         </c:if>
                     </ul>
@@ -123,25 +123,28 @@
 <script>
     $(document).ready(function () {
         $("button[name=1]").click(function () {
-            location.href = "${pageContext.request.contextPath}/emp?method=getEmp&emp_id=" + this.id + "&currPage=" + "${param.currPage}";
+            location.href = "${pageContext.request.contextPath}/admin?method=getEmp&emp_id=" + this.id + "&currPage=" + "${param.currPage}";
         });
     });
     $(document).ready(function () {
         $("button[name=2]").click(function () {
             if (confirm("确认删除吗？")) {
-                location.href = "${pageContext.request.contextPath}/emp?method=delEmp&emp_id=" + this.id + "&currPage=" + "${param.currPage}";
+                location.href = "${pageContext.request.contextPath}/admin?method=delEmp&emp_id=" + this.id + "&currPage=" + "${param.currPage}";
             }
         });
     });
     $(document).ready(function () {
         $("button[name=query]").click(function () {
-            location.href = "${pageContext.request.contextPath}/emp?method=getEmps&condition=" + $("#condition").val() + "&currPage=1";
+            location.href = "${pageContext.request.contextPath}/admin?method=getEmps&condition=" + $("#condition").val() + "&currPage=1";
         });
     });
     $(document).ready(function () {
         $("button[name=add]").click(function () {
             location.href ="${pageContext.request.contextPath}/admin/add.jsp";
         });
+    });
+    $(document).ready(function () {
+        $("#item1").attr("class","list-group-item active");
     });
 </script>
 </html>

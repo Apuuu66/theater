@@ -14,4 +14,3 @@
 <jsp:forward page="/index"></jsp:forward>
 </body>
 </html>
-jdbc.poolPreparedStatements=false

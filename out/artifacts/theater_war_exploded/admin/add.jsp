@@ -29,7 +29,7 @@
         <div class="col-md-10">
             <h2 style="display: inline-block">添加员工</h2>
             <form class="form-horizontal" role="form"
-                  action="${pageContext.request.contextPath}/emp?method=addEmp" method="post">
+                  action="${pageContext.request.contextPath}/admin?method=addEmp" method="post">
                 <div class="form-group">
                     <label for="emp_no" class="col-sm-1 control-label">编号</label>
                     <div class="col-sm-5">
@@ -91,7 +91,7 @@
         if (!reg.test($("#emp_no").val())) {
             $("#emp_no_tip").html("<img src='images/error.png'>请输入6-15位单词组合");
         } else {
-            $.get("${pageContext.request.contextPath}/emp?method=checkNo&emp_no=" + $("#emp_no").val(), function (date) {
+            $.get("${pageContext.request.contextPath}/admin?method=checkNo&emp_no=" + $("#emp_no").val(), function (date) {
                 if (date != "true") {
                     $("#emp_no_tip").html("");
                 } else {
@@ -104,8 +104,11 @@
 
     $(document).ready(function () {
         $("button[name=back]").click(function () {
-            location.href = "${pageContext.request.contextPath}/emp?method=byPage&currPage=1";
+            location.href = "${pageContext.request.contextPath}/admin?method=byPage&currPage=1";
         });
+    });
+    $(document).ready(function () {
+        $("#item1").attr("class","list-group-item active");
     });
 </script>
 </html>

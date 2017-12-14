@@ -5,6 +5,7 @@ import com.ttms.service.EmpService;
 import com.ttms.utils.BeanFactory;
 import com.ttms.vo.Employee;
 import com.ttms.vo.PageBean;
+import com.ttms.vo.User;
 
 import java.util.List;
 
@@ -68,5 +69,46 @@ public class EmpServiceImpl implements EmpService {
     public boolean checkNo(String emp_no) throws Exception {
         EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
         return empDao.checkNo(emp_no);
+    }
+
+    @Override
+    public PageBean<User> findUserByPage(int pageSize, Integer currPage) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        List<User> list = empDao.findUserByPage(currPage, pageSize);
+        int totalCount = empDao.getUserTotalCount();
+        return new PageBean<>(pageSize, currPage, totalCount, list);
+    }
+
+    @Override
+    public void delUser(String emp_no) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        empDao.delUser(emp_no);
+    }
+
+    @Override
+    public User getUser(String emp_no) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        return empDao.getUser(emp_no);
+    }
+
+    @Override
+    public void updateuser(User user) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        empDao.updateuser(user);
+    }
+
+    @Override
+    public PageBean<Employee> findByPage(int pageSize, Integer currPage, String str) throws Exception {
+        int i=0;
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        List<Employee> list = empDao.findByPage(currPage, pageSize,str);
+        int totalCount = empDao.getTotalCount(i);
+        return new PageBean<>(pageSize, currPage, totalCount, list);
+    }
+
+    @Override
+    public void addUser(String emp_no) throws Exception {
+        EmpDao empDao = (EmpDao) BeanFactory.getBean("EmpDao");
+        empDao.addUser(emp_no);
     }
 }
