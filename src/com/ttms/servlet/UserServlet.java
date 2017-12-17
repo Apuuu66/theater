@@ -44,8 +44,6 @@ public class UserServlet extends BaseServlet {
     public String regist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         return null;
     }
-
-
     public String logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getSession().removeAttribute("user");
         response.sendRedirect(request.getContextPath());

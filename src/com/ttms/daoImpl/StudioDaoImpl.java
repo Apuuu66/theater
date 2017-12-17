@@ -2,7 +2,6 @@ package com.ttms.daoImpl;
 
 import com.ttms.dao.StudioDao;
 import com.ttms.utils.DataSourceUtils;
-import com.ttms.vo.Employee;
 import com.ttms.vo.Studio;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -18,16 +17,36 @@ import java.util.List;
  */
 public class StudioDaoImpl implements StudioDao {
     QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+
     @Override
     public int getTotalCount() throws SQLException {
         String sql = "select count(*) from studio";
         int totalCount = ((Long) qr.query(sql, new ScalarHandler())).intValue();
-        System.out.println(totalCount);
         return totalCount;
     }
+
     @Override
     public List<Studio> findAllStudioByPage(int pageSize, Integer currPage) throws SQLException {
         String sql = "select * from studio limit ?,?";
         return qr.query(sql, new BeanListHandler<>(Studio.class), (currPage - 1) * pageSize, pageSize);
+    }
+
+    @Override
+    public boolean update(Studio studio) throws SQLException {
+        String sql = "update studio set studio_name=?,studio_row_count=?,studio_col_count=?," +
+                "studio_introduction=?,studio_flag=? where studio_id=?";
+        int update = qr.update(sql, studio.getStudio_name(), studio.getStudio_row_count(), studio.getStudio_col_count(),
+                studio.getStudio_introduction(), studio.getStudio_flag(), studio.getStudio_id());
+        if (update > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public void delete(String studio_id) throws SQLException {
+        String sql = "delete from studio where studio_id = ?";
+        qr.update(sql,studio_id);
     }
 }

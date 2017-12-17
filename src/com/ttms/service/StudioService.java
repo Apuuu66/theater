@@ -13,7 +13,7 @@ public interface StudioService {
 
     public void add();
 
-    public void update(Studio studio);
+    public boolean update(Studio studio) throws Exception;
 
-    public void delete(String studio_id);
+    public void delete(String studio_id) throws Exception;
 }

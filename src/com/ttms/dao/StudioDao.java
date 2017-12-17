@@ -1,6 +1,5 @@
 package com.ttms.dao;
 
-import com.ttms.vo.PageBean;
 import com.ttms.vo.Studio;
 
 import java.sql.SQLException;
@@ -16,4 +15,8 @@ public interface StudioDao {
     int getTotalCount() throws SQLException;
 
     List<Studio> findAllStudioByPage(int pageSize, Integer currPage) throws SQLException;
+
+    boolean update(Studio studio) throws SQLException;
+
+    void delete(String studio_id) throws SQLException;
 }

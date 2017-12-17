@@ -28,12 +28,14 @@ public class StudioServiceImpl implements StudioService {
     }
 
     @Override
-    public void update(Studio studio) {
-
+    public boolean update(Studio studio) throws Exception {
+        StudioDao sd = (StudioDao) BeanFactory.getBean("StudioDao");
+        return sd.update(studio);
     }
 
     @Override
-    public void delete(String studio_id) {
-
+    public void delete(String studio_id) throws Exception {
+        StudioDao sd = (StudioDao) BeanFactory.getBean("StudioDao");
+        sd.delete(studio_id);
     }
 }

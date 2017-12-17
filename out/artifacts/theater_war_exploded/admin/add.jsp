@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>员工管理</title>
 
     <%--<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">--%>
     <%--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>--%>
@@ -77,7 +77,7 @@
                     </div>
                     <p id="emp_email_tip" class="control-label" style="color:red"></p>
                 </div>
-                <button style="margin-left: 20%" type="submit" class="btn btn-warning">添加</button>
+                <button style="margin-left: 20%" type="submit" class="btn btn-warning" onsubmit="checkNo()">添加</button>
                 <button type="button" class="btn btn-primary" name="back">返回</button>
 
             </form>
@@ -90,6 +90,7 @@
         var reg = /^\w{6,15}$/;
         if (!reg.test($("#emp_no").val())) {
             $("#emp_no_tip").html("<img src='images/error.png'>请输入6-15位单词组合");
+            return false;
         } else {
             $.get("${pageContext.request.contextPath}/admin?method=checkNo&emp_no=" + $("#emp_no").val(), function (date) {
                 if (date != "true") {
@@ -99,6 +100,7 @@
                     $("#emp_no").focus();
                 }
             });
+            return true;
         }
     }
 
