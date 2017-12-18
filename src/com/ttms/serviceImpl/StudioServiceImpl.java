@@ -17,14 +17,15 @@ public class StudioServiceImpl implements StudioService {
     @Override
     public PageBean<Studio> findAllStudioByPage(int pageSize, Integer currPage) throws Exception {
         StudioDao sd = (StudioDao) BeanFactory.getBean("StudioDao");
-        List<Studio> list = sd.findAllStudioByPage(pageSize,currPage);
+        List<Studio> list = sd.findAllStudioByPage(pageSize, currPage);
         int totalCount = sd.getTotalCount();
-        return new PageBean<>(pageSize,currPage,totalCount, list);
+        return new PageBean<>(pageSize, currPage, totalCount, list);
     }
 
     @Override
-    public void add() {
-
+    public void add(Studio studio) throws Exception {
+        StudioDao sd = (StudioDao) BeanFactory.getBean("StudioDao");
+        sd.add(studio);
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.ttms.vo.Employee;
 import com.ttms.vo.Studio;
 import com.ttms.vo.User;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -17,6 +18,7 @@ import org.junit.Test;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -105,7 +107,18 @@ public class TestDemo {
             Studio studio = query.get(i);
             System.out.println(studio.getStudio_name());
         }
+    }
 
+    @Test
+    public void t4() throws SQLException {
+        QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "SELECT * FROM `studio` ORDER BY `studio_id` DESC ";
+        Object[] query = qr.query(sql, new ArrayHandler());
+        System.out.println(query.length);
+        System.out.println(Arrays.toString(query));
+        System.out.println(query[0]);
+        Integer i= (Integer) query[2];
+        System.out.println(i);
     }
 
 }

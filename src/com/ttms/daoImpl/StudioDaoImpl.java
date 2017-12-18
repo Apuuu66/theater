@@ -4,6 +4,7 @@ import com.ttms.dao.StudioDao;
 import com.ttms.utils.DataSourceUtils;
 import com.ttms.vo.Studio;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.ArrayHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
@@ -47,6 +48,21 @@ public class StudioDaoImpl implements StudioDao {
     @Override
     public void delete(String studio_id) throws SQLException {
         String sql = "delete from studio where studio_id = ?";
-        qr.update(sql,studio_id);
+        qr.update(sql, studio_id);
+    }
+
+    @Override
+    public void add(Studio s) throws SQLException {
+        String sql = "INSERT INTO `studio` (`studio_name`, `studio_row_count`, `studio_col_count`, `studio_introduction`, `studio_flag`) VALUES (?,?,?,?,?)";
+        qr.update(sql, s.getStudio_name(), s.getStudio_row_count(), s.getStudio_col_count(), s.getStudio_introduction(), s.getStudio_flag());
+        sql="SELECT studio_id FROM `studio` ORDER BY `studio_id` DESC LIMIT 1";
+        Object[] studio_id = qr.query(sql, new ArrayHandler());
+        Integer id = (Integer) studio_id[0];
+        sql = "INSERT INTO `seat` (`studio_id`, `seat_row`, `seat_column`, `seat_status`) VALUES (?,?,?,?)";
+        for (int i = 1; i <= s.getStudio_row_count(); i++) {
+            for (int j = 1; j <= s.getStudio_col_count(); j++) {
+                qr.update(sql,id,i,j,0);
+            }
+        }
     }
 }

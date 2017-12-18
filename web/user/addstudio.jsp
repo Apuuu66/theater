@@ -29,7 +29,7 @@
         <div class="col-md-10">
             <h2 style="display: inline-block">添加影厅</h2>
             <form class="form-horizontal" role="form"
-                  action="${pageContext.request.contextPath}/studio?method=addstudio" method="post">
+                  action="${pageContext.request.contextPath}/studio?method=add" method="post">
                 <div class="form-group">
                     <label class="col-sm-1 control-label">影厅名</label>
                     <div class="col-sm-5">
@@ -69,7 +69,8 @@
                         <h4><span class="label label-info" id="errormsg"></span></h4>
                     </div>
                 </div>
-                <button style="margin-left: 20%" type="submit" class="btn btn-warning"  onsubmit="return check()">添加</button>
+                <button style="margin-left: 20%" type="submit" class="btn btn-warning" onclick="return check()">添加
+                </button>
                 <button type="button" class="btn btn-primary" name="back">返回</button>
             </form>
         </div>
@@ -84,29 +85,34 @@
             location.href = "${pageContext.request.contextPath}/studio?method=findAll&currPage=1";
         });
     });
+
     function check() {
-            var n1 = $("#n1").val();
-            var n2 = $("#n2").val();
-            var n3 = $("#n3").val();
-            var n4 = $("#n4").val();
-            var n5 = $("#n5").val();
-            var re = /^[1-9][0-9]*$/;
-            if (n1 == "" || n2 == "" || n3 == "" || n4 == "" || n5 == "") {
-                $("#errormsg").html("请填写完整信息!").show(300).delay(1000).hide(300);
-                return false;
-            }
-            else if (!re.test(n2) && !re.test(n3)) {
-                $("#errormsg").html("演出厅行列值必须必须为数字且大于0!").show(300).delay(1000).hide(300);
-                return false;
-            }
-            else if (n5 != 0 && n5 != 1) {
-                $("#errormsg").html("最后一栏填(0|1)").show(300).delay(1000).hide(300);
-                return false;
-            }
-            else {
-                $("#errormsg").html("格式正确").show(300).delay(1000).hide(300);
-                return true;
-            }
+        var n1 = $("#n1").val();
+        var n2 = $("#n2").val();
+        var n3 = $("#n3").val();
+        var n4 = $("#n4").val();
+        var n5 = $("#n5").val();
+        var re = /^[1-9][1-9]*$/;
+        if (n1 == "" || n2 == "" || n3 == "" || n4 == "" || n5 == "") {
+            $("#errormsg").html("请填写完整信息!").show(300).delay(1000).hide(300);
+            return false;
+        }
+        else if (!re.test(n2)){
+            $("#errormsg").html("演出厅行值必须必须为数字且大于0!").show(300).delay(1000).hide(300);
+            return false;
+        }
+        else if (!re.test(n3)){
+            $("#errormsg").html("演出厅列值必须必须为数字且大于0!").show(300).delay(1000).hide(300);
+            return false;
+        }
+        else if (n5 != 0 && n5 != 1) {
+            $("#errormsg").html("最后一栏填(0|1)").show(300).delay(1000).hide(300);
+            return false;
+        }
+        else {
+            $("#errormsg").html("格式正确").show(300).delay(1000).hide(300);
+            return true;
+        }
     }
 </script>
 </html>

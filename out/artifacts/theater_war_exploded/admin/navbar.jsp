@@ -14,7 +14,7 @@
             <a href="${pageContext.request.contextPath}/admin?method=byPage&currPage=1" class="list-group-item" name="u" id="item1">员工管理</a>
             <a href="${pageContext.request.contextPath}/studio?method=findAll&currPage=1" class="list-group-item" id="item2">影厅管理</a>
             <a href="#" class="list-group-item" name="u" id="item3">影片管理</a>
-            <a href="#" class="list-group-item" id="item4">座位管理</a>
+            <a href="${pageContext.request.contextPath}/user/seat.jsp" class="list-group-item" id="item4">座位管理</a>
             <a href="#" class="list-group-item" name="u" id="item5">售票管理</a>
             <a href="${pageContext.request.contextPath}/admin?method=manageLogin&currPage=1" class="list-group-item" name="u" id="item6">登录管理</a>
             <a href="${pageContext.request.contextPath}/user?method=logout" class="list-group-item">退出系统</a>

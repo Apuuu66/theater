@@ -5,12 +5,11 @@ import com.ttms.service.StudioService;
 import com.ttms.utils.BeanFactory;
 import com.ttms.vo.PageBean;
 import com.ttms.vo.Studio;
+import org.apache.commons.beanutils.BeanUtils;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -57,6 +56,15 @@ public class StudioServlet extends BaseServlet {
         StudioService ss = (StudioService) BeanFactory.getBean("StudioService");
         ss.delete(studio_id);
         response.sendRedirect(request.getContextPath()+"/studio?method=findAll&currPage="+currPage);
+        return null;
+    }
+
+    public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Studio studio = new Studio();
+        BeanUtils.populate(studio,request.getParameterMap());
+        StudioService ss = (StudioService) BeanFactory.getBean("StudioService");
+        ss.add(studio);
+        response.sendRedirect(request.getContextPath()+"/studio?method=findAll&currPage=1");
         return null;
     }
 }

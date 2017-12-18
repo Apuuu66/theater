@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+    <title>影厅管理</title>
 
     <%--<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">--%>
     <%--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>--%>
@@ -21,7 +21,7 @@
     <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-    
+
 
 </head>
 <body>
@@ -35,12 +35,17 @@
                     <h2 style="display: inline-block">所有影厅
                         <small>All studio</small>
                     </h2>
+                    <div style="display: inline;margin-left: 10%;"> <h4 style="display: inline-block"><span class="label label-success" id="errormsg"></span>
+                    </h4></div>
 
-                    <div class="form-group" style="margin-left:50% ">
+                    <%--<div class="form-group" style="margin-left:50% ">--%>
+                    <div style="float: right ;margin-top: 2%">
+                    <div class="form-group" >
                         <input type="text" class="form-control" placeholder="Search" id="condition">
                     </div>
                     <button type="button" name="query" class="btn btn-primary">查询</button>
                     <button type="button" name="add" class="btn btn-warning">添加</button>
+                    </div>
                 </form>
             </div>
             <div class="table-responsive">
@@ -118,8 +123,7 @@
                         </c:if>
                     </ul>
                 </c:if>
-                <h3 style="display: inline-block"><span class="label label-success" id="errormsg"></span>
-                </h3>
+
             </div>
         </div>
     </div>

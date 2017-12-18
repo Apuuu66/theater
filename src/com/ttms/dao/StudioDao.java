@@ -19,4 +19,6 @@ public interface StudioDao {
     boolean update(Studio studio) throws SQLException;
 
     void delete(String studio_id) throws SQLException;
+
+    void add(Studio studio) throws SQLException;
 }

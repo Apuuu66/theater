@@ -7,6 +7,12 @@
     <!--emp-->
     <bean id="EmpService" class="com.ttms.serviceImpl.EmpServiceImpl"/>
     <bean id="EmpDao" class="com.ttms.daoImpl.EmpDaoImpl"/>
+
+    <!--studio-->
     <bean id="StudioService" class="com.ttms.serviceImpl.StudioServiceImpl"/>
     <bean id="StudioDao" class="com.ttms.daoImpl.StudioDaoImpl"/>
+
+    <!--seat-->
+    <bean id="SeatService" class="com.ttms.serviceImpl.SeatServiceImpl"/>
+    <bean id="SeatDao" class="com.ttms.daoImpl.SeatDaoImpl"/>
 </beans>

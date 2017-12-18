@@ -11,9 +11,10 @@ import com.ttms.vo.Studio;
 public interface StudioService {
     PageBean<Studio> findAllStudioByPage(int pageSize, Integer currPage) throws Exception;
 
-    public void add();
+    public void add(Studio studio) throws Exception;
 
     public boolean update(Studio studio) throws Exception;
 
     public void delete(String studio_id) throws Exception;
+
 }
