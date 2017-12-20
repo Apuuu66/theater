@@ -11,7 +11,7 @@
         <span style="line-height: 50px; ">后台管理中心</span>
     </div>
     <div class="dropdown" style="display: inline-block; float:right; margin-right:10px; margin-top:9px;">
-        <a href="#"><img src="${pageContext.request.contextPath}/${userlogin.head_path}" alt="未登录"
+        <a href="${pageContext.request.contextPath}/userInfo.jsp"><img src="${pageContext.request.contextPath}/${userlogin.head_path}" alt="未登录"
                          style="display:inline-block;float:right;width: 35px;height: 35px;
                           margin-right:40px; border-radius: 5px;">
         </a>

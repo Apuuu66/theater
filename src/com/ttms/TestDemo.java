@@ -53,6 +53,8 @@ public class TestDemo {
         System.out.println(str.startsWith("/user/"));
         str = "1 1";
         System.out.println(str.trim().length());
+        List list=new ArrayList();
+        System.out.println(list.size());
     }
 
 

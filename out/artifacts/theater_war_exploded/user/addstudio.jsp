@@ -92,7 +92,7 @@
         var n3 = $("#n3").val();
         var n4 = $("#n4").val();
         var n5 = $("#n5").val();
-        var re = /^[1-9][1-9]*$/;
+        var re = /^[1-9][0-9]*$/;
         if (n1 == "" || n2 == "" || n3 == "" || n4 == "" || n5 == "") {
             $("#errormsg").html("请填写完整信息!").show(300).delay(1000).hide(300);
             return false;

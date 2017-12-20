@@ -3,6 +3,7 @@ package com.ttms.serviceImpl;
 import com.ttms.dao.SeatDao;
 import com.ttms.service.SeatService;
 import com.ttms.utils.BeanFactory;
+import com.ttms.vo.Seat;
 import com.ttms.vo.Studio;
 
 import java.util.List;
@@ -22,5 +23,17 @@ public class SeatServiceImpl implements SeatService {
     public List<Studio> getStudio() throws Exception {
         SeatDao sd = (SeatDao) BeanFactory.getBean("SeatDao");
         return sd.getStudio();
+    }
+
+    @Override
+    public List<Seat> getSeatByStudioID(String studioId) throws Exception {
+        SeatDao sd = (SeatDao) BeanFactory.getBean("SeatDao");
+        return sd.getSeatByStudioID(studioId);
+    }
+
+    @Override
+    public void update(String seat_id, String seat_status) throws Exception {
+        SeatDao sd = (SeatDao) BeanFactory.getBean("SeatDao");
+        sd.update(seat_id, seat_status);
     }
 }
