@@ -10,4 +10,6 @@ import java.sql.SQLException;
  */
 public interface UserDao {
     User getUserByNameAndPwd(String emp_no, String emp_pass) throws SQLException;
+
+    void update(User user) throws SQLException;
 }

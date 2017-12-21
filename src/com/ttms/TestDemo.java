@@ -122,5 +122,17 @@ public class TestDemo {
         Integer i= (Integer) query[2];
         System.out.println(i);
     }
+    @Test
+    public void t5() {
+        String path = Class.class.getClass().getResource("/").getPath();
+//        System.out.println(path);
+        String s="form-data; name=\"part\"; filename=\"y.jpg\"";
+        int l=s.lastIndexOf(".");
+        System.out.println(l);
+        System.out.println(s.length());
+        System.out.println(s.substring(l,s.length()-1));
+
+
+    }
 
 }

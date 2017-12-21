@@ -9,4 +9,6 @@ import com.ttms.vo.User;
 public interface UserService {
 
     User getUserByNameAndPwd(String emp_no, String emp_pass) throws Exception;
+
+    void update(User user) throws Exception;
 }

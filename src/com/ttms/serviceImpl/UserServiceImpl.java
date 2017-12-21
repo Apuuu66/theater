@@ -14,6 +14,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByNameAndPwd(String emp_no, String emp_pass) throws Exception {
         UserDao userDao = (UserDao) BeanFactory.getBean("UserDao");
-        return userDao.getUserByNameAndPwd(emp_no,emp_pass);
+        return userDao.getUserByNameAndPwd(emp_no, emp_pass);
+    }
+
+    @Override
+    public void update(User user) throws Exception {
+        UserDao userDao = (UserDao) BeanFactory.getBean("UserDao");
+        userDao.update(user);
     }
 }

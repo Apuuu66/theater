@@ -36,9 +36,9 @@
                     <div class="panel-body" style="padding:30px; padding-bottom:10px; padding-top:10px;">
                         <div class="form-group">
                             <div class="field field-icon-right">
-                                <input type="text" class="input input-big" name="emp_no" placeholder="登录账号" data-validate="required:请填写账号" />
-                                <span class="icon icon-user margin-small"></span>
-                               <%--<span >123</span>--%>
+                                <input type="text" class="input input-big" name="emp_no" placeholder="登录账号" data-validate="required:请填写账号" id="no"/>
+                                <span class="icon icon-user margin-small" id=""></span>
+                               <span style="color: red" id="tip"></span>
                             </div>
                         </div>
                         <div class="form-group">
@@ -55,7 +55,7 @@
                             <%--</div>--%>
                         <%--</div>--%>
                     </div>
-                    <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" value="登录"></div>
+                    <div style="padding:30px;"><input type="submit" class="button button-block bg-main text-big input-big" onclick="return checkNO()" value="登录"></div>
                 </div>
             </form>
         </div>
@@ -63,4 +63,17 @@
 </div>
 
 </body>
+<script>
+    function checkNO() {
+        var rep=/^\d{2,10}$/;
+        if(rep.test($("#no").val())) {
+            return true;
+        }
+        else {
+            $("#no").val("");
+            $("#tip").html("请合法输入");
+            return false;
+        }
+    }
+</script>
 </html>

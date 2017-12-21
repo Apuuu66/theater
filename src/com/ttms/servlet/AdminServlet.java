@@ -141,7 +141,6 @@ public class AdminServlet extends BaseServlet {
         Map<String, String[]> map = request.getParameterMap();
         BeanUtils.populate(user, map);
         EmpService s = (EmpService) BeanFactory.getBean("EmpService");
-        System.out.println(user.getEmp_no());
         s.updateuser(user);
         response.sendRedirect(request.getContextPath() + "/admin?method=manageLogin&currPage=" + currPage);
         return null;
